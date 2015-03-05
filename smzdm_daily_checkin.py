@@ -19,6 +19,7 @@ if __name__ == '__main__':
     ]
     sleep_time = random.randint(0, 60)
     time.sleep(sleep_time)
-    with open(CHECKIN_RESULT, "w") as fh:
+    with open(CHECKIN_RESULT, "a") as fh:
         result = opener.open('http://www.smzdm.com//user/qiandao/jsonp_checkin').read()[1:-1]
-        fh.write(str(datetime.datetime.now()) + " " + json.dumps(json.loads(result), ensure_ascii = False))
+        data = json.loads(result)
+        fh.write(str(datetime.datetime.now()) + " " + data["data"]["slogan"].encode("utf8") + "\n")
